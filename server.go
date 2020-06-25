@@ -19,7 +19,7 @@ type Response struct {
 
 type RequestHandlerFunc func(request *Request, extractor RequestExtractor) (response *Response, err error)
 
-type ApplicationServer interface {
+type Application interface {
     Start() (err error)
     Register(path string, handler RequestHandlerFunc)
     Stop() (err error)
