@@ -25,12 +25,16 @@ func (ap *DefaultApplicationServer) Register(path string, handler RequestHandler
     http.HandleFunc(path, func(w http.ResponseWriter, req *http.Request) {
 
         // Build http request which is sent to client for processing
-        request := &Request{
-            HttpRequest: req,
-        }
+        request := &Request{HttpRequest: req}
 
         var err error
-        if request.ByteBody, err = ioutil.ReadAll(req.Body); err != nil || request.ByteBody == nil {
+        if request.ByteBody, err = ioutil.ReadAll(req.Body); err != nil {
+            http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+            return
+        }
+        defer req.Body.Close()
+
+        if request.ByteBody == nil {
             http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
             return
         }
