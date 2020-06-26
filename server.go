@@ -1,6 +1,8 @@
 package server
 
-import "net/http"
+import (
+    "net/http"
+)
 
 type Request struct {
     ByteBody    []byte
@@ -30,4 +32,11 @@ func NewDefaultRequestExtractor(request *Request) (extractor RequestExtractor, e
     return &requestExtractorImplementation{
         Request: request,
     }, nil
+}
+
+func NewApplicationServer(port int) (server Application, err error) {
+    server = &DefaultApplicationServer{
+        Port: port,
+    }
+    return
 }
