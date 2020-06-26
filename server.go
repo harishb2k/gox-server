@@ -29,7 +29,7 @@ type Application interface {
 }
 
 func NewDefaultRequestExtractor(request *Request) (extractor RequestExtractor, err error) {
-    return &requestExtractorImplementation{
+    return &DefaultRequestExtractor{
         Request: request,
     }, nil
 }
