@@ -18,6 +18,7 @@ type Response struct {
     Err         error
     Headers     map[string]string
     ContentType string
+    Metadata    map[string]interface{}
 }
 
 type RequestHandlerFunc func(request *Request, extractor RequestExtractor) (response *Response, err error)
